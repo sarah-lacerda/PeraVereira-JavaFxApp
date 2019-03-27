@@ -1,3 +1,4 @@
+import com.sun.deploy.util.SystemUtils;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -52,14 +53,28 @@ public class Iniciar extends Application {
     }
     public static void main(String[] args) {
         Process process = null;
-        try {
+        String os = System.getProperty("os.name").toLowerCase();
+        if(os.contains("win")) {
+            try {
+                InetAddress localhost = InetAddress.getLocalHost();
+                ip = (localhost.getHostAddress()).trim();
+                String path = System.getProperty("user.dir") + "\\DATA";
+                //path = path.replace("src", "DATA");
+                process = new ProcessBuilder(path + "\\WinServer.exe").start();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        else if(os.contains("osx")){
+            try {
             InetAddress localhost = InetAddress.getLocalHost();
             ip = (localhost.getHostAddress()).trim();
-            String path = System.getProperty("user.dir")+"\\DATA";
+            String path = System.getProperty("user.dir") + "\\DATA";
             //path = path.replace("src", "DATA");
-            process = new ProcessBuilder(path+"\\server.exe").start();
-        }
-        catch (Exception e){e.printStackTrace();}
+            process = new ProcessBuilder(path + "\\OSXServer.dmg").start();
+            } catch (Exception e) {
+            e.printStackTrace();
+        }}
         launch(args);
         process.destroy();
     }
