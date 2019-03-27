@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Pera:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Pera_jar</output-path>
+    <root id="archive" name="Pera.jar">
+      <element id="module-output" name="Pera" />
+    </root>
+  </artifact>
+</component>
