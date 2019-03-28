@@ -24,7 +24,7 @@ public class Iniciar extends Application {
         } else {
             alert.setHeaderText("CONECTE-SE COM: " + ip + "    ");
         }
-        alert.setContentText("Sistema iniciado com sucesso! Digite o endereco acima nos navegadores onde as atividades serao aplicadas \nAVISO: NAO ABRA ESSA JANELA MULTIPLAS VEZES.\nMANTENHA ESSA JANELA ABERTA ATE O FINAL DA APLICACAO DOS JOGOS\nA TRANSMISSAO SERA PARADA AO FECHAR\nPARA TERMINAR A EXECUCAO APERTE O BOTAO OK ABAIXO");
+        alert.setContentText("Sistema iniciado com sucesso! Digite o endereco acima nos navegadores onde as atividades serao aplicadas \nAVISO: NAO ABRA O APLICATIVO MULTIPLAS VEZES.\nMANTENHA ESSA JANELA ABERTA ATE O FINAL DA APLICACAO DOS JOGOS\nA TRANSMISSAO SERA PARADA AO FECHAR\nPARA TERMINAR A EXECUCAO APERTE O BOTAO OK ABAIXO");
         alert.showAndWait();
 
 
@@ -32,35 +32,24 @@ public class Iniciar extends Application {
 
     public static void main(String[] args) {
         Process process = null;
-        String os = System.getProperty("os.name").toLowerCase();
-        if (os.contains("win")) {
-            try {
-                peraVereira = new File(System.getProperty("user.dir") + "\\DATA\\pera.png");
-                InetAddress localhost = InetAddress.getLocalHost();
-                ip = (localhost.getHostAddress()).trim();
-                String path = System.getProperty("user.dir") + "\\DATA";
-                //path = path.replace("src", "DATA");
-                process = new ProcessBuilder(path + "\\WinServer.exe").start();
-                launch(args);
-                process.destroy();
+        //String os = System.getProperty("os.name").toLowerCase();
+        try {
+            String path = System.getProperty("user.dir") + "\\";
+            peraVereira = new File(path + "pera.png");
+            InetAddress localhost = InetAddress.getLocalHost();
+            ip = (localhost.getHostAddress()).trim();
+            //path = path.replace("src", "DATA");
+            //process = Runtime.getRuntime().exec(path + "python.exe -m http.server 80");
+//             Process p =  Runtime.getRuntime().exec("Taskkill /IM python.exe /F");
+            launch(args);
+//            process.destroy();
+            process =  Runtime.getRuntime().exec("Taskkill /IM python.exe /F");
 
 
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else {
-            try {
-                peraVereira = new File(System.getProperty("user.dir") + "/DATA/pera.png");
-                InetAddress localhost = InetAddress.getLocalHost();
-                ip = (localhost.getHostAddress()).trim();
-                String path = System.getProperty("user.dir") + "/DATA";
-                ProcessBuilder pythonHttpServer = new ProcessBuilder();
-                pythonHttpServer.command("bash", "-c", "python3 -m http.server");
-                launch(args);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
     }
 
 }
